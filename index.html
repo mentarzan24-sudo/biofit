@@ -1,109 +1,401 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BioFit Science | Проект Соболева Владимира</title>
-    
-    <style>
-        :root {
-            --bg-color: #000000;
-            --card-bg: #111111;
-            --text-main: #f8fafc;
-            --text-muted: #a1a1aa;
-            --neon-blue: #a855f7;
-            --neon-green: #10b981;
-            --neon-purple: #d946ef;
-            --neon-red: #ef4444;
-            --border-color: #27272a;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BioFit Science | Проект Соболева Владимира</title>
+<style>
+    body {
+        background-color: #000000;
+        color: #ffffff;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        padding-top: 60px;
+    }
+    nav {
+        background-color: #000000;
+        border-bottom: 2px solid #a855f7;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 15px 0;
+        text-align: center;
+        z-index: 1000;
+    }
+    nav a {
+        color: #a855f7;
+        text-decoration: none;
+        margin: 0 10px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    h1, h2, h3 {
+        color: #a855f7;
+        margin-bottom: 15px;
+    }
+    h2 {
+        border-bottom: 2px solid #a855f7;
+        padding-bottom: 5px;
+        margin-top: 30px;
+    }
+    .card {
+        background-color: #111111;
+        border: 1px solid #333333;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+    .btn {
+        background-color: #a855f7;
+        color: #ffffff;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+    .btn:hover {
+        background-color: #9333ea;
+    }
+    input, select {
+        width: 100%;
+        padding: 10px;
+        background-color: #000000;
+        border: 1px solid #333333;
+        color: #ffffff;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+        color: #aaaaaa;
+        font-size: 14px;
+    }
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    @media (max-width: 600px) {
+        .grid { grid-template-columns: 1fr; }
+        nav a { font-size: 12px; margin: 0 5px; }
+    }
+    .progress-bg {
+        width: 100%;
+        height: 20px;
+        background-color: #333333;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-top: 5px;
+    }
+    .progress-fill {
+        height: 100%;
+        width: 0%;
+    }
+    .fill-mtor { background-color: #10b981; }
+    .fill-lipase { background-color: #ef4444; }
+    .fill-ampk { background-color: #f59e0b; }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+    th, td {
+        padding: 10px;
+        border-bottom: 1px solid #333333;
+        text-align: left;
+    }
+    th { color: #a855f7; }
+    .warning { color: #ef4444; font-weight: bold; }
+    .highlight { color: #10b981; font-weight: bold; }
+</style>
+</head>
+<body>
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            scroll-behavior: smooth;
-        }
+<nav>
+    <a href="#sim">Симулятор</a>
+    <a href="#calc">Калькулятор</a>
+    <a href="#diet">Рацион</a>
+    <a href="#train">Тренировки</a>
+    <a href="#atlas">Атлас</a>
+    <a href="#quiz">Тест</a>
+</nav>
 
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            padding-top: 70px;
-        }
+<div class="container">
+    <header style="text-align: center; padding: 20px 0;">
+        <h1>BioFit Science</h1>
+        <p>Проект Соболева Владимира, 11 класс Лицей № 88</p>
+        <p id="js-status" style="color: orange; font-weight: bold;">⚠️ JS загружается...</p>
+    </header>
 
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            padding: 15px 0;
-        }
+    <section id="sim">
+        <h2>1. Симулятор mTORC1 vs AMPK</h2>
+        <div class="card">
+            <div class="grid">
+                <div>
+                    <label>Нагрузка</label>
+                    <select id="sim-work">
+                        <option value="strength">Силовая</option>
+                        <option value="cardio">Кардио</option>
+                        <option value="combined">Смешанная</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Питание</label>
+                    <select id="sim-diet">
+                        <option value="surplus">Профицит + лейцин</option>
+                        <option value="deficit">Дефицит 15%</option>
+                        <option value="fasting">Голодание</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn" onclick="runSim()">Рассчитать</button>
+            
+            <div style="margin-top: 20px;">
+                <div>
+                    <div style="display:flex; justify-content:space-between;"><span>mTORC1 (Рост)</span><span id="v-mtor">0%</span></div>
+                    <div class="progress-bg"><div class="progress-fill fill-mtor" id="b-mtor"></div></div>
+                </div>
+                <div style="margin-top: 15px;">
+                    <div style="display:flex; justify-content:space-between;"><span>Липазы (Жиросжигание)</span><span id="v-lip">0%</span></div>
+                    <div class="progress-bg"><div class="progress-fill fill-lipase" id="b-lip"></div></div>
+                </div>
+                <div style="margin-top: 15px;">
+                    <div style="display:flex; justify-content:space-between;"><span>AMPK (Стресс)</span><span id="v-ampk">0%</span></div>
+                    <div class="progress-bg"><div class="progress-fill fill-ampk" id="b-ampk"></div></div>
+                </div>
+            </div>
+            <p id="sim-text" style="margin-top: 15px; color: #10b981; font-style: italic;"></p>
+        </div>
+    </section>
 
-        nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            margin: 0 12px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-        }
+    <section id="calc">
+        <h2>2. Калькулятор КБЖУ</h2>
+        <div class="card">
+            <div class="grid">
+                <div><label>Пол</label><select id="c-gender"><option value="male">Муж</option><option value="female">Жен</option></select></div>
+                <div><label>Возраст</label><input type="number" id="c-age" value="18"></div>
+                <div><label>Вес (кг)</label><input type="number" id="c-weight" value="70"></div>
+                <div><label>Рост (см)</label><input type="number" id="c-height" value="175"></div>
+                <div><label>Активность</label><select id="c-act"><option value="1.2">Сидячий</option><option value="1.55" selected>Средний</option><option value="1.7">Высокий</option></select></div>
+                <div><label>Цель</label><select id="c-goal"><option value="deficit">Похудение</option><option value="recomp">Поддержание</option><option value="surplus">Набор</option></select></div>
+            </div>
+            <button class="btn" onclick="calcBMR()">Рассчитать</button>
+            <div id="res-calc" style="display:none; margin-top:20px; border:1px solid #a855f7; padding:15px; border-radius:8px;"></div>
+        </div>
+    </section>
 
-        nav a:hover {
-            color: var(--neon-blue);
-            text-shadow: 0 0 8px rgba(168, 85, 247, 0.5);
-        }
+    <section id="diet">
+        <h2>3. Белковый рацион</h2>
+        <div class="card">
+            <label>Норма белка (г)</label>
+            <input type="number" id="d-protein" value="120">
+            <label>Профиль</label>
+            <select id="d-profile">
+                <option value="budget">Бюджетный (яйца, печень, творог)</option>
+                <option value="classic">Классический (яйца, грудка, творог)</option>
+            </select>
+            <button class="btn" onclick="buildDiet()">Сгенерировать</button>
+            <div id="res-diet" style="display:none; margin-top:20px;">
+                <table><thead><tr><th>Прием</th><th>Продукт</th><th>Вес</th></tr></thead><tbody id="diet-body"></tbody></table>
+            </div>
+        </div>
+    </section>
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
+    <section id="train">
+        <h2>4. Генератор тренировок</h2>
+        <div class="card">
+            <div class="grid">
+                <div><label>Место</label><select id="t-place"><option value="home">Дома</option><option value="gym">В зале</option></select></div>
+                <div><label>Цель</label><select id="t-goal"><option value="lipolysis">Похудение</option><option value="hypertrophy">Набор массы</option></select></div>
+            </div>
+            <button class="btn" onclick="genTrain()">Сгенерировать</button>
+            <div id="res-train" style="display:none; margin-top:20px;"></div>
+        </div>
+    </section>
 
-        h1, h2, h3 {
-            color: var(--neon-blue);
-            margin-bottom: 20px;
-        }
+    <section id="atlas">
+        <h2>5. Атлас и Мифы</h2>
+        <div class="card">
+            <h3>mTORC1</h3>
+            <p>Активируется лейцином и натяжением. Запускает синтез белка (рост мышц).</p>
+            <h3>Липолиз</h3>
+            <p>Адреналин активирует ферменты ATGL/HSL, которые расщепляют жир.</p>
+            <h3 class="warning">Миф: Жир перекачивается в мышцы</h3>
+            <p>Это невозможно, это разные ткани. Жир сжигается, а мышцы растут параллельно.</p>
+        </div>
+    </section>
 
-        h2 {
-            border-bottom: 2px solid var(--neon-blue);
-            display: inline-block;
-            padding-bottom: 5px;
-        }
+    <section id="safety">
+        <h2>6. Безопасность</h2>
+        <div class="card">
+            <h3 style="color:#f59e0b;">При диабете 2 типа</h3>
+            <p>Не тренируйтесь натощак (риск гипогликемии). Силовые лучше кардио для чувствительности к инсулину.</p>
+            <h3 style="color:#10b981;">Сон</h3>
+            <p>Мышцы растут во сне. Недосып повышает кортизол (разрушает мышцы).</p>
+        </div>
+    </section>
 
-        p {
-            margin-bottom: 15px;
-        }
+    <section id="quiz">
+        <h2>7. Экспресс-тест</h2>
+        <div class="card">
+            <p>1. Главный ингибитор липолиза?</p>
+            <label><input type="radio" name="q1" value="a"> Адреналин</label><br>
+            <label><input type="radio" name="q1" value="b"> Инсулин</label><br>
+            <p style="margin-top:10px;">2. Активатор mTORC1?</p>
+            <label><input type="radio" name="q2" value="a"> Лейцин</label><br>
+            <label><input type="radio" name="q2" value="b"> Глицин</label>
+            <button class="btn" onclick="checkQuiz()">Проверить</button>
+            <p id="res-quiz" style="margin-top:15px; font-weight:bold;"></p>
+        </div>
+    </section>
+</div>
 
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.05);
-        }
+<footer style="text-align: center; padding: 30px; font-size: 12px; color: #aaaaaa; border-top: 1px solid #333333; margin-top: 40px;">
+    <p>© 2026 BioFit Science. Соболев Владимир.</p>
+    <p>Информация носит образовательный характер.</p>
+</footer>
 
-        .btn {
-            background: linear-gradient(135deg, #7e22ce, var(--neon-blue));
-            color: #fff;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            font-size: 1rem;
-            width: 100%;
-            margin-top: 15px;
-        }
+<script>
+    window.onload = function() {
+        document.getElementById('js-status').innerText = "✅ Сайт работает!";
+        document.getElementById('js-status').style.color = "#10b981";
+    };
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 15
+    function runSim() {
+        var w = document.getElementById('sim-work').value;
+        var d = document.getElementById('sim-diet').value;
+        var mtor = 50, lip = 50, ampk = 50;
+        
+        if(w==='strength'){ mtor+=30; lip-=10; }
+        if(w==='cardio'){ mtor-=10; lip+=30; ampk+=20; }
+        if(d==='surplus'){ mtor+=20; lip-=10; }
+        if(d==='fasting'){ mtor-=20; lip+=20; ampk+=20; }
+        
+        mtor = Math.min(100, Math.max(0, mtor));
+        lip = Math.min(100, Math.max(0, lip));
+        ampk = Math.min(100, Math.max(0, ampk));
+        
+        document.getElementById('v-mtor').innerText = mtor+'%';
+        document.getElementById('b-mtor').style.width = mtor+'%';
+        document.getElementById('v-lip').innerText = lip+'%';
+        document.getElementById('b-lip').style.width = lip+'%';
+        document.getElementById('v-ampk').innerText = ampk+'%';
+        document.getElementById('b-ampk').style.width = ampk+'%';
+        
+        document.getElementById('sim-text').innerText = "Расчет завершен. Активность mTOR: " + mtor + "%, Липолиз: " + lip + "%.";
+    }
+
+    function calcBMR() {
+        var g = document.getElementById('c-gender').value;
+        var a = parseFloat(document.getElementById('c-age').value);
+        var w = parseFloat(document.getElementById('c-weight').value);
+        var h = parseFloat(document.getElementById('c-height').value);
+        var act = parseFloat(document.getElementById('c-act').value);
+        var goal = document.getElementById('c-goal').value;
+        
+        var bmr = (10*w) + (6.25*h) - (5*a);
+        bmr = (g==='male') ? bmr+5 : bmr-161;
+        
+        var cal = bmr * act;
+        if(goal==='deficit') cal = cal * 0.85;
+        if(goal==='surplus') cal = cal * 1.15;
+        
+        var hm = h/100;
+        var bmi = w / (hm*hm);
+        var ideal = w;
+        var status = "";
+        
+        if(bmi < 18.5) {
+            ideal = 20 * (hm*hm);
+            status = "<span class='warning'>(Дефицит массы)</span><br><span class='warning'>Опасно худеть! Белок рассчитан на здоровый вес.</span>";
+        } else if(bmi < 25) {
+            status = "<span class='highlight'>(Норма)</span>";
+        } else {
+            ideal = 24.9 * (hm*hm);
+            status = "<span style='color:#f59e0b;'>(Избыточный вес)</span>";
+        }
+        
+        var prot = ideal * 2.0;
+        var fat = ideal * 1.0;
+        var carbs = (cal - (prot*4) - (fat*9)) / 4;
+        if(carbs < 0) carbs = 0;
+        
+        var res = document.getElementById('res-calc');
+        res.style.display = 'block';
+        res.innerHTML = "<h3>ИМТ: " + bmi.toFixed(1) + " " + status + "</h3>" +
+                        "<p>Здоровый вес: ~" + Math.round(ideal) + " кг</p>" +
+                        "<p>Калории: <b>" + Math.round(cal) + " ккал</b></p>" +
+                        "<p>Белки: <b>" + Math.round(prot) + " г</b></p>" +
+                        "<p>Жиры: <b>" + Math.round(fat) + " г</b></p>" +
+                        "<p>Углеводы: <b>" + Math.round(carbs) + " г</b></p>";
+    }
+
+    function buildDiet() {
+        var p = parseFloat(document.getElementById('d-protein').value) || 120;
+        var prof = document.getElementById('d-profile').value;
+        var per = p / 4;
+        
+        var prods = [];
+        if(prof === 'budget') {
+            prods = [{n:"Яйца", v:12.7}, {n:"Печень", v:18}, {n:"Творог", v:17}, {n:"Сердце", v:16}];
+        } else {
+            prods = [{n:"Яйца", v:12.7}, {n:"Грудка", v:23.6}, {n:"Творог", v:17}, {n:"Грудка", v:23.6}];
+        }
+        
+        var meals = ["Завтрак", "Обед", "Перекус", "Ужин"];
+        var html = "";
+        for(var i=0; i<4; i++) {
+            var w = (per / prods[i].v) * 100;
+            html += "<tr><td>" + meals[i] + "</td><td>" + prods[i].n + "</td><td>" + Math.round(w) + " г</td></tr>";
+        }
+        
+        document.getElementById('diet-body').innerHTML = html;
+        document.getElementById('res-diet').style.display = 'block';
+    }
+
+    function genTrain() {
+        var pl = document.getElementById('t-place').value;
+        var gl = document.getElementById('t-goal').value;
+        var html = "";
+        
+        if(gl === 'lipolysis') {
+            html = "<h3>Жиросжигание (Круговая)</h3>";
+            if(pl === 'home') html += "<ul><li>Приседания 15</li><li>Отжимания 10</li><li>Планка 40с</li></ul>";
+            else html += "<ul><li>Жим ногами 15</li><li>Тяга блока 12</li><li>Бег 5 мин</li></ul>";
+        } else {
+            html = "<h3>Набор массы (Сплит)</h3>";
+            if(pl === 'home') html += "<ul><li>Отжимания 4х10</li><li>Тяга гантелей 4х12</li><li>Приседания с гантелями 4х12</li></ul>";
+            else html += "<ul><li>Жим лежа 4х10</li><li>Тяга штанги 4х10</li><li>Приседания со штангой 4х8</li></ul>";
+        }
+        
+        document.getElementById('res-train').innerHTML = html;
+        document.getElementById('res-train').style.display = 'block';
+    }
+
+    function checkQuiz() {
+        var ans = {q1: 'b', q2: 'a'};
+        var score = 0;
+        for(var q in ans) {
+            var el = document.querySelector('input[name="'+q+'"]:checked');
+            if(el && el.value === ans[q]) score++;
+        }
+        
+        var res = document.getElementById('res-quiz');
+        if(score === 2) res.innerHTML = "<span class='highlight'>Отлично! 2 из 2.</span>";
+        else res.innerHTML = "<span class='warning'>Правильно: " + score + " из 2.</span>";
+    }
+</script>
+</body>
+</html>
