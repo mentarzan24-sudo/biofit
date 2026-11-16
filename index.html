@@ -5,128 +5,120 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BioFit Science | Проект Соболева Владимира</title>
 <style>
-    :root {
-        --bg: #000000;
-        --card: #111111;
-        --text: #ffffff;
-        --muted: #a1a1aa;
-        --purple: #a855f7;
-        --green: #10b981;
-        --red: #ef4444;
-        --border: #27272a;
-    }
-   
-    * {
-        box-sizing: border-box;
+    body {
+        background-color: #000000;
+        color: #ffffff;
+        font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        scroll-behavior: smooth;
+        padding-top: 80px;
     }
-   
-    body {
-        font-family: 'Segoe UI', Arial, sans-serif;
-        background-color: var(--bg);
-        color: var(--text);
-        line-height: 1.6;
-        padding-top: 60px;
-    }
-   
     nav {
+        background-color: #000000;
+        border-bottom: 2px solid #a855f7;
         position: fixed;
         top: 0;
         width: 100%;
-        background: #000;
-        border-bottom: 1px solid var(--border);
-        z-index: 1000;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
         padding: 15px 0;
+        text-align: center;
+        z-index: 1000;
     }
-   
     nav a {
-        color: var(--muted);
+        color: #a855f7;
         text-decoration: none;
         margin: 0 10px;
         font-weight: bold;
-        font-size: 0.9rem;
+        font-size: 14px;
     }
-   
-    nav a:hover { color: var(--purple); }
-   
     .container {
-        max-width: 1000px;
+        max-width: 800px;
         margin: 0 auto;
-        padding: 30px 15px;
-    }
-   
-    h1, h2, h3 { color: var(--purple); margin-bottom: 15px; }
-    h2 { border-bottom: 2px solid var(--purple); display: inline-block; padding-bottom: 5px; margin-top: 30px;}
-    p { margin-bottom: 15px; }
-   
-    .card {
-        background-color: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 10px;
         padding: 20px;
+    }
+    h1, h2, h3 {
+        color: #a855f7;
+        margin-bottom: 15px;
+    }
+    h2 {
+        border-bottom: 2px solid #a855f7;
+        padding-bottom: 5px;
+        margin-top: 30px;
+    }
+    .card {
+        background-color: #111111;
+        border: 1px solid #333333;
+        padding: 20px;
+        border-radius: 10px;
         margin-bottom: 20px;
     }
-   
     .btn {
-        background: var(--purple);
-        color: #fff;
-        border: none;
+        background-color: #a855f7;
+        color: #ffffff;
         padding: 12px;
-        border-radius: 8px;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
         font-weight: bold;
         cursor: pointer;
-        width: 100%;
+        font-size: 16px;
         margin-top: 10px;
-        font-size: 1rem;
     }
-   
-    .btn:hover { background: #9333ea; }
-   
+    .btn:hover {
+        background-color: #9333ea;
+    }
     input, select {
         width: 100%;
         padding: 10px;
-        margin-bottom: 10px;
-        background: #000;
-        border: 1px solid var(--border);
-        color: #fff;
+        background-color: #000000;
+        border: 1px solid #333333;
+        color: #ffffff;
         border-radius: 5px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
     }
-   
-    label { display: block; margin-bottom: 5px; color: var(--muted); font-size: 0.9rem; }
-   
+    label {
+        display: block;
+        margin-bottom: 5px;
+        color: #aaaaaa;
+        font-size: 14px;
+    }
     .grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 15px;
     }
-   
     @media (max-width: 600px) {
         .grid { grid-template-columns: 1fr; }
-        nav a { margin: 5px; font-size: 0.8rem; }
+        nav a { font-size: 12px; margin: 0 5px; }
     }
-   
-    .progress-box { margin: 15px 0; }
-    .progress-bg { width: 100%; height: 20px; background: #222; border-radius: 10px; overflow: hidden; }
-    .progress-fill { height: 100%; width: 0%; transition: 0.5s; }
-    .fill-mtor { background: linear-gradient(90deg, #10b981, #a855f7); }
-    .fill-lipase { background: linear-gradient(90deg, #d946ef, #ef4444); }
-    .fill-ampk { background: linear-gradient(90deg, #ef4444, #f59e0b); }
-   
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
-    th, td { padding: 10px; border-bottom: 1px solid var(--border); text-align: left; }
-    th { color: var(--purple); background: #000; }
-   
-    .train-day { background: #1a1a1a; padding: 15px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid var(--purple); }
-   
-    .warning { color: var(--red); font-weight: bold; }
-    .highlight { color: var(--green); font-weight: bold; }
-   
-    footer { text-align: center; padding: 30px; font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--border); margin-top: 40px; }
+    .progress-bg {
+        width: 100%;
+        height: 20px;
+        background-color: #333333;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-top: 5px;
+    }
+    .progress-fill {
+        height: 100%;
+        width: 0%;
+    }
+    .fill-mtor { background-color: #10b981; }
+    .fill-lipase { background-color: #ef4444; }
+    .fill-ampk { background-color: #f59e0b; }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+    th, td {
+        padding: 10px;
+        border-bottom: 1px solid #333333;
+        text-align: left;
+    }
+    th { color: #a855f7; }
+    .warning { color: #ef4444; font-weight: bold; }
+    .highlight { color: #10b981; font-weight: bold; }
 </style>
 </head>
 <body>
@@ -142,15 +134,11 @@
 
 <div class="container">
     <header style="text-align: center; padding: 20px 0;">
-        <svg width="60" height="60" viewBox="0 0 24 24" fill="#a855f7" style="margin-bottom: 10px;">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
-        </svg>
         <h1>BioFit Science</h1>
         <p>Проект Соболева Владимира, 11 класс Лицей № 88</p>
         <p id="js-status" style="color: orange; font-weight: bold;">⚠️ JS загружается...</p>
     </header>
 
-    <!-- 1. СИМУЛЯТОР -->
     <section id="sim">
         <h2>1. Симулятор mTORC1 vs AMPK</h2>
         <div class="card">
@@ -175,24 +163,23 @@
             <button class="btn" onclick="runSim()">Рассчитать</button>
            
             <div style="margin-top: 20px;">
-                <div class="progress-box">
+                <div>
                     <div style="display:flex; justify-content:space-between;"><span>mTORC1 (Рост)</span><span id="v-mtor">0%</span></div>
                     <div class="progress-bg"><div class="progress-fill fill-mtor" id="b-mtor"></div></div>
                 </div>
-                <div class="progress-box">
+                <div style="margin-top: 15px;">
                     <div style="display:flex; justify-content:space-between;"><span>Липазы (Жиросжигание)</span><span id="v-lip">0%</span></div>
                     <div class="progress-bg"><div class="progress-fill fill-lipase" id="b-lip"></div></div>
                 </div>
-                <div class="progress-box">
+                <div style="margin-top: 15px;">
                     <div style="display:flex; justify-content:space-between;"><span>AMPK (Стресс)</span><span id="v-ampk">0%</span></div>
                     <div class="progress-bg"><div class="progress-fill fill-ampk" id="b-ampk"></div></div>
                 </div>
             </div>
-            <p id="sim-text" style="margin-top: 15px; color: var(--green); font-style: italic;"></p>
+            <p id="sim-text" style="margin-top: 15px; color: #10b981; font-style: italic;"></p>
         </div>
     </section>
 
-    <!-- 2. КАЛЬКУЛЯТОР -->
     <section id="calc">
         <h2>2. Калькулятор КБЖУ</h2>
         <div class="card">
@@ -205,11 +192,10 @@
                 <div><label>Цель</label><select id="c-goal"><option value="deficit">Похудение</option><option value="recomp">Поддержание</option><option value="surplus">Набор</option></select></div>
             </div>
             <button class="btn" onclick="calcBMR()">Рассчитать</button>
-            <div id="res-calc" style="display:none; margin-top:20px; border:1px solid var(--purple); padding:15px; border-radius:8px;"></div>
+            <div id="res-calc" style="display:none; margin-top:20px; border:1px solid #a855f7; padding:15px; border-radius:8px;"></div>
         </div>
     </section>
 
-    <!-- 3. РАЦИОН -->
     <section id="diet">
         <h2>3. Белковый рацион</h2>
         <div class="card">
@@ -227,7 +213,6 @@
         </div>
     </section>
 
-    <!-- 4. ТРЕНИРОВКИ -->
     <section id="train">
         <h2>4. Генератор тренировок</h2>
         <div class="card">
@@ -240,7 +225,6 @@
         </div>
     </section>
 
-    <!-- 5. АТЛАС -->
     <section id="atlas">
         <h2>5. Атлас и Мифы</h2>
         <div class="card">
@@ -253,18 +237,16 @@
         </div>
     </section>
 
-    <!-- 6. БЕЗОПАСНОСТЬ -->
     <section id="safety">
         <h2>6. Безопасность</h2>
         <div class="card">
-            <h3 style="color:orange;">При диабете 2 типа</h3>
+            <h3 style="color:#f59e0b;">При диабете 2 типа</h3>
             <p>Не тренируйтесь натощак (риск гипогликемии). Силовые лучше кардио для чувствительности к инсулину.</p>
-            <h3 style="color:var(--green);">Сон</h3>
+            <h3 style="color:#10b981;">Сон</h3>
             <p>Мышцы растут во сне. Недосып повышает кортизол (разрушает мышцы).</p>
         </div>
     </section>
 
-    <!-- 7. ТЕСТ -->
     <section id="quiz">
         <h2>7. Экспресс-тест</h2>
         <div class="card">
@@ -280,7 +262,7 @@
     </section>
 </div>
 
-<footer>
+<footer style="text-align: center; padding: 30px; font-size: 12px; color: #aaaaaa; border-top: 1px solid #333333; margin-top: 40px;">
     <p>© 2026 BioFit Science. Соболев Владимир.</p>
     <p>Информация носит образовательный характер.</p>
 </footer>
@@ -342,7 +324,7 @@
             status = "<span class='highlight'>(Норма)</span>";
         } else {
             ideal = 24.9 * (hm*hm);
-            status = "<span style='color:orange;'>(Избыточный вес)</span>";
+            status = "<span style='color:#f59e0b;'>(Избыточный вес)</span>";
         }
        
         var prot = ideal * 2.0;
