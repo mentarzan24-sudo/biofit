@@ -543,9 +543,25 @@
 
         // УЛУЧШЕННЫЙ РАСЧЕТ БЕЛКА (на основе идеального веса)
         var heightM = height / 100;
-        var bmi = weight / (heightM * heightM);
-        var idealWeight = 24.9 * (heightM * heightM); // Идеальный вес по верхней границе нормы ИМТ
-        if (idealWeight > weight) { idealWeight = weight; } // Если человек худой, берем реальный вес
+var bmi = weight / (heightM * heightM);
+var idealWeight = weight;
+var bmiStatus = "";
+var bmiWarning = "";
+
+if (bmi < 18.5) {
+    idealWeight = 20 * (heightM * heightM);
+    bmiStatus = '<span class="warning">(Дефицит массы тела)</span>';
+    bmiWarning = '<p class="warning" style="font-size: 0.85rem; margin-top: 5px; margin-bottom: 15px;">⚠️ Внимание: у вас дефицит массы тела. Стремиться к похудению в таком состоянии опасно для здоровья!</p>';
+} else if (bmi >= 18.5 && bmi <= 24.9) {
+    idealWeight = weight;
+    bmiStatus = '<span class="highlight">(Норма)</span>';
+} else if (bmi >= 25 && bmi <= 29.9) {
+    idealWeight = 24.9 * (heightM * heightM);
+    bmiStatus = '<span style="color: #f59e0b;">(Избыточный вес)</span>';
+} else {
+    idealWeight = 24.9 * (heightM * heightM);
+    bmiStatus = '<span class="warning">(Ожирение)</span>';
+}
        
         var proteinMultiplier = (goal === 'surplus') ? 1.8 : 2.0;
         var protein = idealWeight * proteinMultiplier;
@@ -554,21 +570,20 @@
         var carbs = (targetCalories - (protein * 4) - (fat * 9)) / 4;
         if (carbs < 0) carbs = 0;
         var water = weight * 30;
-
         var resultDiv = document.getElementById('calc-result');
-        resultDiv.style.display = 'block';
-        resultDiv.innerHTML =
-            '<h3>Ваши результаты:</h3>' +
-            '<p><strong>Ваш ИМТ:</strong> ' + bmi.toFixed(1) + ' <span style="font-size:0.85rem; color:var(--text-muted);">(Идеальный вес для вас: ~' + Math.round(idealWeight) + ' кг)</span></p>' +
-            '<p><strong>Базовый обмен (BMR):</strong> ' + Math.round(bmr) + ' ккал</p>' +
-            '<p><strong>Суточная норма калорий:</strong> <span class="highlight">' + Math.round(targetCalories) + ' ккал</span></p>' +
-            '<hr style="border-color: var(--border-color); margin: 10px 0;">' +
-            '<p><strong>Белки:</strong> ' + Math.round(protein) + ' г (' + Math.round(protein * 4) + ' ккал) <span style="font-size:0.8rem; color:var(--text-muted);">*рассчитано на идеальный вес</span></p>' +
-            '<p><strong>Жиры:</strong> ' + Math.round(fat) + ' г (' + Math.round(fat * 9) + ' ккал)</p>' +
-            '<p><strong>Углеводы:</strong> ' + Math.round(carbs) + ' г (' + Math.round(carbs * 4) + ' ккал)</p>' +
-            '<p><strong>Норма воды:</strong> ' + Math.round(water) + ' мл</p>';
-    }
-
+resultDiv.style.display = 'block';
+resultDiv.innerHTML =
+    '<h3>Ваши результаты:</h3>' +
+    '<p><strong>Ваш ИМТ:</strong> ' + bmi.toFixed(1) + ' ' + bmiStatus + '</p>' +
+    bmiWarning +
+    '<p><strong>Рекомендуемый здоровый вес:</strong> ~' + Math.round(idealWeight) + ' кг</p>' +
+    '<p><strong>Базовый обмен (BMR):</strong> ' + Math.round(bmr) + ' ккал</p>' +
+    '<p><strong>Суточная норма калорий:</strong> <span class="highlight">' + Math.round(targetCalories) + ' ккал</span></p>' +
+    '<hr style="border-color: var(--border-color); margin: 10px 0;">' +
+    '<p><strong>Белки:</strong> ' + Math.round(protein) + ' г (' + Math.round(protein * 4) + ' ккал) <span style="font-size:0.8rem; color:var(--text-muted);">*рассчитано на идеальный вес</span></p>' +
+    '<p><strong>Жиры:</strong> ' + Math.round(fat) + ' г (' + Math.round(fat * 9) + ' ккал)</p>' +
+    '<p><strong>Углеводы:</strong> ' + Math.round(carbs) + ' г (' + Math.round(carbs * 4) + ' ккал)</p>' +
+    '<p><strong>Норма воды:</strong> ' + Math.round(water) + ' мл</p>';
     function buildDiet() {
         var totalProtein = getVal('diet-protein', 140);
         var profile = document.getElementById('diet-profile').value;
